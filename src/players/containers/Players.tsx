@@ -6,8 +6,6 @@ interface Props {
 }
 
 const Players: React.FC<Props> = (props) => {
-    // const [players, setPlayers] = useState<DominionPlayer[]>([])
-    // const [playerNames, setPlayerNames] = useState<DominionPlayerFullName[]>([])
     let players: DominionPlayer[] = []
     let playerNames: DominionPlayerFullName[] = []
     console.log(props.data);
@@ -73,25 +71,6 @@ const Players: React.FC<Props> = (props) => {
         console.log(playerWins);
         return playerWins
     }
-
-    // useEffect( (): void => {
-    //     let playersArray: any[] = []
-    //     console.log(props.data);
-    //     if(props.data){
-    //         //set local players array
-    //         for(const [gameNumber, game] of Object.entries(props.data)){
-    //             for(const player of game){
-    //                 playersArray = playersArray.concat(player)
-    //             }
-    //         }
-    //         setPlayers(playersArray)
-    //         //find all unique names
-    //         let playerNameSet = new Set(players.map(player => player.fullName))
-    //         //TODO: learn to love typescript enough to deal with the below
-    //         // @ts-ignore
-    //         setPlayerNames([...playerNameSet])
-    //     }
-    // }, [props.data])
 
     return (
         <div>
