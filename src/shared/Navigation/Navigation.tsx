@@ -28,7 +28,7 @@ const Navigation = () => {
             <nav>
                 <div className="nav-wrapper">
                     {/*<div className={"hamburger"} onClick={openDrawer}>|||</div>*/}
-                    <div className={"brand-logo"} onClick={openDrawer}><Link to={"/"}>(hamburger) LOGO</Link></div>
+                    <div className={"brand-logo"} onClick={openDrawer}><Link to={"/"}>LOGO</Link></div>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
                         <li><Link to={"/players"}>Players</Link> </li>
                         <li><Link to={"/stats"}>Stats</Link> </li>
