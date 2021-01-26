@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {DominionPlayer, DominionPlayerFullName} from "../../types/DominionGame";
 
 interface Props {
@@ -12,6 +12,7 @@ const Players: React.FC<Props> = (props) => {
     if(props.data){
         //set local players array
         for(const [gameNumber, game] of Object.entries(props.data)){
+            console.log(gameNumber)
             for(const player of game){
                 players = players.concat(player)
             }
@@ -57,6 +58,7 @@ const Players: React.FC<Props> = (props) => {
 
         if(props.data){
             for(const [gameNumber, game] of Object.entries(props.data)){
+                console.log(gameNumber)
                 let winningScore = 0
                 //look up the winning score
                 for(const player of game){

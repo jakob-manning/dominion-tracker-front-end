@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Players from "./players/containers/Players";
 import Stats from "./stats/containers/Stats";
 import Navigation from "./shared/Navigation/Navigation";
@@ -22,7 +22,7 @@ function App() {
 
     return (
       <BrowserRouter>
-          <Navigation></Navigation>
+          <Navigation />
         <Switch>
             <Route exact path={"/"}>
                 <Home />
