@@ -1,18 +1,16 @@
 import React from 'react'
-import {DominionPlayer, DominionPlayerFullName} from "../../types/DominionGame";
+import {DominionPlayerResults, DominionPlayerFullName} from "../../types/DominionGame";
 
 interface Props {
     data: object
 }
 
 const Players: React.FC<Props> = (props) => {
-    let players: DominionPlayer[] = []
+    let players: DominionPlayerResults[] = []
     let playerNames: DominionPlayerFullName[] = []
-    console.log(props.data);
     if(props.data){
         //set local players array
-        for(const [gameNumber, game] of Object.entries(props.data)){
-            console.log(gameNumber)
+        for(const game of Object.values(props.data)){
             for(const player of game){
                 players = players.concat(player)
             }

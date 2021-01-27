@@ -2,12 +2,15 @@ import React, {useState} from 'react'
 import { Link } from "react-router-dom";
 import SideDrawer from "../UI/sideDrawer/SideDrawer";
 import Backdrop from "../UI/Backdrop/Backdrop";
+import classes from './Navigation.module.css'
 
-const Navigation = () => {
+const Navigation: React.FC = () => {
 
     const [drawerIsOpen, setDrawerIsOpen] = useState(false)
 
-    const openDrawer = () => {
+    const openDrawer = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+
+        event.preventDefault()
         setDrawerIsOpen(true)
     }
 
@@ -19,21 +22,23 @@ const Navigation = () => {
         <React.Fragment>
             {drawerIsOpen && <Backdrop onClick={closeDrawer}/>}
             {drawerIsOpen && <SideDrawer close={closeDrawer}>
-                <ul>
-                    <li><Link to={"/"}>HOME</Link></li>
-                    <li><Link to={"/players"}>Players</Link></li>
-                    <li><Link className="waves-effect" to={"/stats"}>Stats</Link></li>
-                </ul>
-            </SideDrawer>}
+                <div className={classes.sidebar}>
+                    <div className={classes.home}><Link to={"/"}>Dominion World</Link></div>
+                    <Link to={"/players"}>Players</Link>
+                    <Link className="waves-effect" to={"/stats"}>Stats</Link>
+                </div>
+                </SideDrawer>}
             <nav>
-                <div className="nav-wrapper">
-                    {/*<div className={"hamburger"} onClick={openDrawer}>|||</div>*/}
-                    <div className={"brand-logo"} onClick={openDrawer}><Link to={"/"}>LOGO</Link></div>
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><Link to={"/players"}>Players</Link> </li>
-                        <li><Link to={"/stats"}>Stats</Link> </li>
-                        <li><Link to={"/"}>Home</Link> </li>
-                    </ul>
+                <div className={classes.topnav}>
+                    {/*<div className={"brand-logo"} onClick={openDrawer}><Link to={"/"}>LOGO</Link></div>*/}
+                        <div className={classes.home}><Link to={"/"}>Dominion World</Link></div>
+                        <Link to={"/players"}>Players</Link>
+                        <Link to={"/stats"}>Stats</Link>
+                    <a href="/" className={classes.icon} onClick={ (event: React.MouseEvent<HTMLAnchorElement>) => openDrawer(event)}>
+                        <div className={classes.hamburgerLayer} />
+                        <div className={classes.hamburgerLayer} />
+                        <div className={classes.hamburgerLayer} />
+                    </a>
                 </div>
             </nav>
         </React.Fragment>
