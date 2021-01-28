@@ -2,6 +2,7 @@ import {
     DominionPlayerFullName,
     DominionPlayerResultsList
 } from "../types/DominionGame";
+import { std as standardDeviation } from "mathjs";
 
 export const calculatePlayerPoints = (playerName: DominionPlayerFullName, players: DominionPlayerResultsList): number => {
     let playerPoints = 0;
@@ -33,6 +34,7 @@ export const calculatePlayerGames = (playerName: DominionPlayerFullName, players
 
 export const calculatePlayerWins = (playerName: DominionPlayerFullName, gameList: object): number => {
     let playerWins = 0;
+    console.log(gameList)
 
     for(const [gameNumber, game] of Object.entries(gameList)){
         console.log(gameNumber)
@@ -48,4 +50,18 @@ export const calculatePlayerWins = (playerName: DominionPlayerFullName, gameList
     }
     console.log(playerWins);
     return playerWins
+}
+
+export const calculateStandardDeviation = (playerName: DominionPlayerFullName, players: DominionPlayerResultsList): number => {
+    let playerPointsArray: number[] = []
+
+    for(const player of players){
+        if(player.fullName === playerName) {
+            if(player.score){
+                playerPointsArray = playerPointsArray.concat(player.score)
+            }
+        }
+    }
+    console.log(playerPointsArray);
+    return standardDeviation(playerPointsArray)
 }
