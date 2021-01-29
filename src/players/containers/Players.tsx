@@ -1,5 +1,5 @@
 import React from 'react'
-import {DominionPlayerResults, DominionPlayerFullName} from "../../types/DominionGame";
+import {DominionPlayerResults, DominionPlayerFullName} from "../../types/DominionGameTypes";
 
 interface Props {
     data: object

@@ -1,7 +1,7 @@
 import {
     DominionPlayerFullName,
     DominionPlayerResultsList
-} from "../types/DominionGame";
+} from "../types/DominionGameTypes";
 import { std as standardDeviation } from "mathjs";
 
 export const calculatePlayerPoints = (playerName: DominionPlayerFullName, players: DominionPlayerResultsList): number => {
@@ -14,7 +14,6 @@ export const calculatePlayerPoints = (playerName: DominionPlayerFullName, player
             }
         }
     }
-    console.log(playerPoints);
     return playerPoints
 }
 
@@ -28,16 +27,14 @@ export const calculatePlayerGames = (playerName: DominionPlayerFullName, players
             }
         }
     }
-    console.log(playerGames);
     return playerGames
 }
 
-export const calculatePlayerWins = (playerName: DominionPlayerFullName, gameList: object): number => {
+//calculates the player wins after the start date
+export const calculatePlayerWins = (playerName: DominionPlayerFullName, gameList: object, startDate ?: Date): number => {
     let playerWins = 0;
-    console.log(gameList)
 
-    for(const [gameNumber, game] of Object.entries(gameList)){
-        console.log(gameNumber)
+    for(const game of Object.values(gameList)){
         let winningScore = 0
         //look up the winning score
         for(const player of game){
@@ -45,10 +42,17 @@ export const calculatePlayerWins = (playerName: DominionPlayerFullName, gameList
         }
         //see if our player got the winning score
         for(const player of game){
-            if(player.fullName === playerName && player.score === winningScore) playerWins ++
+            if(player.fullName === playerName && player.score === winningScore) {
+                if(!startDate){
+                    playerWins ++
+                }
+                else if (player.date >= startDate?.toISOString()){
+                    playerWins ++
+                }
+            }
+
         }
     }
-    console.log(playerWins);
     return playerWins
 }
 
@@ -62,6 +66,37 @@ export const calculateStandardDeviation = (playerName: DominionPlayerFullName, p
             }
         }
     }
-    console.log(playerPointsArray);
-    return standardDeviation(playerPointsArray)
+    if(playerPointsArray.length > 0) return standardDeviation(playerPointsArray)
+    return 0
+}
+
+//create player stats table
+export const createPlayerStatsTable = (playerNames: DominionPlayerFullName[], playerResultsList: DominionPlayerResultsList, gameList: object, startDate ?: Date) => {
+    const playerStatsTable = []
+    for(const player of playerNames){
+        const name = player
+        const wins = calculatePlayerWins(player, gameList, startDate)
+        const games = calculatePlayerGames(player, playerResultsList)
+        const points = calculatePlayerPoints(player, playerResultsList)
+        const averageWins = (wins/games).toFixed(2)
+        const averagePoints = (points/games).toFixed(2)
+        const standardDeviation = calculateStandardDeviation(player, playerResultsList).toFixed(4)
+        const DominionWorldScore = (wins - (games-wins)*0.914159) //this feels wonderfully arbitrary ... but we could still make it weirder
+
+        const playerDetails = {
+            name,
+            wins,
+            games,
+            points,
+            averageWins,
+            averagePoints,
+            standardDeviation,
+            DominionWorldScore,
+        }
+        playerStatsTable.push(playerDetails)
+    }
+
+    playerStatsTable.sort( (player1, player2 ) => player2.DominionWorldScore - player1.DominionWorldScore)
+
+    return playerStatsTable
 }

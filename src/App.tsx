@@ -5,7 +5,7 @@ import Players from "./players/containers/Players";
 import Stats from "./stats/containers/Stats";
 import Navigation from "./shared/Navigation/Navigation";
 import axios from "axios";
-import {DominionPlayerResults, DominionPlayerFullName, DominionPlayerResultsList} from "./types/DominionGame";
+import {DominionPlayerResults, DominionPlayerFullName, DominionPlayerResultsList} from "./types/DominionGameTypes";
 import Home from "./home/Home";
 
 function App() {

@@ -1,12 +1,7 @@
 import React from 'react'
 import classes from "./Home.module.css";
-import { DominionPlayerFullName, DominionPlayerResultsList} from "../types/DominionGame";
-import {
-    calculatePlayerGames,
-    calculatePlayerPoints,
-    calculatePlayerWins,
-    calculateStandardDeviation
-} from "../shared/util";
+import {DominionPlayerFullName, DominionPlayerResultsList, DominionPlayerStats} from "../types/DominionGameTypes";
+import { createPlayerStatsTable } from "../shared/util";
 
 interface Props {
     playerNames: DominionPlayerFullName[],
@@ -22,42 +17,81 @@ const Home: React.FC<Props> = ({playerNames, playerResultsList, gameList})=> {
 
     //create a table with all the most interesting stats
     //sort the table by "points"
-    const playerStatsTable = []
+    let playerStatsTable: DominionPlayerStats[] = []
+    let thisMonthsPlayerStatsTable: DominionPlayerStats [] =[]
 
-    if(playerNames && playerResultsList){
-        for(const player of playerNames){
-            const name = player
-            const wins = calculatePlayerWins(player, gameList)
-            const games = calculatePlayerGames(player, playerResultsList)
-            const points = calculatePlayerPoints(player, playerResultsList)
-            const averageWins = (wins/games).toFixed(2)
-            const averagePoints = (points/games).toFixed(2)
-            const standardDeviation = calculateStandardDeviation(player, playerResultsList).toFixed(4)
-            const DominionWorldScore = (wins - (games-wins)*0.914159) //this feels sufficiently arbitrary
+    if(playerResultsList && playerResultsList && gameList){
+        //create an overall leaderboard
+        playerStatsTable = createPlayerStatsTable(playerNames, playerResultsList, gameList)
+        const today = new Date()
+        const firstOfTheMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
-            const playerDetails = {
-                name,
-                wins,
-                games,
-                points,
-                averageWins,
-                averagePoints,
-                standardDeviation,
-                DominionWorldScore,
-            }
-            playerStatsTable.push(playerDetails)
-        }
+        //create this month's leaderboard
+        const thisMonthsResults = playerResultsList.filter(player => {
+            if(!player.date) return false
+            return player.date >= firstOfTheMonth.toISOString()
+        })
+        const thisMonthsPlayerNames = thisMonthsResults.map( player => player.fullName)
 
-        playerStatsTable.sort( (player1, player2 ) => player2.DominionWorldScore - player1.DominionWorldScore)
+        console.log(thisMonthsResults)
+
+        thisMonthsPlayerStatsTable = createPlayerStatsTable(thisMonthsPlayerNames, thisMonthsResults, gameList, firstOfTheMonth)
+        console.log(thisMonthsPlayerStatsTable);
     }
-
-    //create a different leaderboard for the past month (sort by date and remove any values that don't have the same month)
-
 
 
     return (
         <div className={classes.Home}>
-            <h1>LeaderBoard</h1>
+            <h1>This Month's Leaderboard</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>
+                        Player
+                    </th>
+                    <th>
+                        Games
+                    </th>
+                    <th>
+                        Winning Average
+                    </th>
+                    <th>
+                        Average Points / Game
+                    </th>
+                    <th>
+                        Standard Deviation
+                    </th>
+                    <th>
+                        Total Points
+                    </th>
+                    <th>
+                        Total Wins
+                    </th>
+                    <th>
+                        Dominion World Score
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {thisMonthsPlayerStatsTable[0] && thisMonthsPlayerStatsTable.map( playerDetails => {
+                    return(
+                        <tr key={playerDetails.name}>
+                            <td>{playerDetails.name}</td>
+                            <td>{playerDetails.games}</td>
+                            <td>{playerDetails.averageWins}</td>
+                            <td>{playerDetails.averagePoints}</td>
+                            <td>{playerDetails.standardDeviation}</td>
+                            <td>{playerDetails.points}</td>
+                            <td>{playerDetails.wins}</td>
+                            <td>{playerDetails.DominionWorldScore.toFixed(3)}</td>
+                        </tr>
+                    )
+                })}
+                </tbody>
+            </table>
+
+
+            <h1>All-Time Leaderboard</h1>
             <table>
                 <thead>
                     <tr>
