@@ -13,7 +13,7 @@ const Download = () => {
 
             <h2>Download the Critically Acclaimed Extension Today</h2>
             <ol>
-                <li>Download the <a target={"_blank"} rel="noreferrer noopener" href={"https://drive.google.com/file/d/1S02JgIyWyY9ZiAmsLaDv8i4FpX5yHtgq/view?usp=sharing"}>DominionWorld Chromium Extension</a></li>
+                <li>Download the <a target={"_blank"} rel="noreferrer noopener" href={"https://drive.google.com/file/d/16Od5t2ine9bnGXJUzIQZjAWzk0SBzfg-/view?usp=sharing"}>DominionWorld Chromium Extension</a></li>
                 <li>Unzip the extension</li>
                 <li>Open your favourite Chromium browser (Google Chrome, or Microsoft Edge Chromium)</li>
                 <li>Go to chrome://extensions</li>
