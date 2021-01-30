@@ -31,7 +31,8 @@ const Home: React.FC<Props> = ({playerNames, playerResultsList, gameList})=> {
             if(!player.date) return false
             return player.date >= firstOfTheMonth.toISOString()
         })
-        const thisMonthsPlayerNames = thisMonthsResults.map( player => player.fullName)
+        let thisMonthsPlayerNames = thisMonthsResults.map( player => player.fullName)
+        thisMonthsPlayerNames = thisMonthsPlayerNames.filter((item, index) => thisMonthsPlayerNames.indexOf(item) === index)
 
         console.log(thisMonthsResults)
 

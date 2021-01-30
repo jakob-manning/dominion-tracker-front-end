@@ -56,7 +56,7 @@ function App() {
               <Players data={games as object} />
           </Route>
           <Route path={"/stats"}>
-              <Stats/>
+              <Stats playerNames={playerNames} playerResultsList={playerResults} gameList={games} />
           </Route>
             <Route path={"/download"}>
                 <Download/>

@@ -16,6 +16,16 @@ export interface DominionPlayerResults {
     gameNumber: string;
 }
 
+export interface DominionPlayerResultsSafe {
+    fullName: DominionPlayerFullName;
+    shortName: DominionPlayerShortName;
+    deck: DominionDeck;
+    score: number;
+    turns: number;
+    date: ISO_String;
+    gameNumber: string;
+}
+
 export interface DominionDeck {
     dataType: string;
     value: DominionCard[]
