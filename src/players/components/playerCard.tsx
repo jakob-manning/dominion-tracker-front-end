@@ -1,13 +1,13 @@
 import React from 'react'
 import classes from "./playerCard.module.css";
 
-const playerCard: React.FC = (props) => {
+const PlayerCard: React.FC = (props) => {
 
     return (
         <div className={classes.card}>
-            props.children
+            {props.children}
         </div>
     )
 }
 
-export default playerCard
+export default PlayerCard

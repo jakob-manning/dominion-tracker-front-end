@@ -1,5 +1,7 @@
 import React from 'react'
 import {DominionPlayerResults, DominionPlayerFullName} from "../../types/DominionGameTypes";
+import PlayerCard from "../components/playerCard";
+import classes from "./Players.module.css";
 
 interface Props {
     data: object
@@ -73,19 +75,21 @@ const Players: React.FC<Props> = (props) => {
     }
 
     return (
-        <div>
+        <div className={classes.Players}>
             <h1>Player Profiles</h1>
-            {playerNames.map( player => {
-                console.log(player);
-                return (
-                    <div>
-                        <h3>{player}</h3>
-                        <p>Wins: {calculatePlayerWins(player)}</p>
-                        <p>Points: {calculatePlayerPoints(player)}</p>
-                        <p>Games: {calculatePlayerGames(player)}</p>
-                    </div>
-                )
-            })}
+            <div className={classes.cardContainer}>
+                {playerNames.map( player => {
+                    console.log(player);
+                    return (
+                            <PlayerCard>
+                                <h3>{player}</h3>
+                                <p>Wins: {calculatePlayerWins(player)}</p>
+                                <p>Points: {calculatePlayerPoints(player)}</p>
+                                <p>Games: {calculatePlayerGames(player)}</p>
+                            </PlayerCard>
+                    )
+                })}
+            </div>
         </div>
     )
 }
