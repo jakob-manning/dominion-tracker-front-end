@@ -7,6 +7,7 @@ import Navigation from "./shared/Navigation/Navigation";
 import axios from "axios";
 import {DominionPlayerResults, DominionPlayerFullName, DominionPlayerResultsList} from "./types/DominionGameTypes";
 import Home from "./home/Home";
+import Download from "./download/download";
 
 function App() {
     const [games, setGames] = useState< object>({})
@@ -57,6 +58,9 @@ function App() {
           <Route path={"/stats"}>
               <Stats/>
           </Route>
+            <Route path={"/download"}>
+                <Download/>
+            </Route>
             <Route path={"/"}>
                 <div>Error 404 :)</div>
             </Route>

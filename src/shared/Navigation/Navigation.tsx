@@ -23,17 +23,19 @@ const Navigation: React.FC = () => {
             {drawerIsOpen && <Backdrop onClick={closeDrawer}/>}
             {drawerIsOpen && <SideDrawer close={closeDrawer}>
                 <div className={classes.sidebar}>
-                    <div className={classes.home}><Link to={"/"}>Dominion World</Link></div>
+                    <div className={classes.home}><Link to={"/"}>DominionWorld</Link></div>
                     <Link to={"/players"}>Players</Link>
-                    <Link className="waves-effect" to={"/stats"}>Stats</Link>
+                    <Link to={"/stats"}>Stats</Link>
+                    <Link to={"/download"}>Download</Link>
                 </div>
                 </SideDrawer>}
             <nav>
                 <div className={classes.topnav}>
                     {/*<div className={"brand-logo"} onClick={openDrawer}><Link to={"/"}>LOGO</Link></div>*/}
-                        <div className={classes.home}><Link to={"/"}>Dominion World</Link></div>
+                        <div className={classes.home}><Link to={"/"}>DominionWorld</Link></div>
                         <Link to={"/players"}>Players</Link>
                         <Link to={"/stats"}>Stats</Link>
+                        <Link to={"/download"}>Download</Link>
                     <a href="/" className={classes.icon} onClick={ (event: React.MouseEvent<HTMLAnchorElement>) => openDrawer(event)}>
                         <div className={classes.hamburgerLayer} />
                         <div className={classes.hamburgerLayer} />

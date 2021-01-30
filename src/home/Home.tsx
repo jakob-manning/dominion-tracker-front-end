@@ -68,7 +68,7 @@ const Home: React.FC<Props> = ({playerNames, playerResultsList, gameList})=> {
                         Total Wins
                     </th>
                     <th>
-                        Dominion World Score
+                        <span className={classes.brand}>DominionWorld Score</span>
                     </th>
                 </tr>
                 </thead>
@@ -117,7 +117,7 @@ const Home: React.FC<Props> = ({playerNames, playerResultsList, gameList})=> {
                             Total Wins
                         </th>
                         <th>
-                            Dominion World Score
+                            <span className={classes.brand}>DominionWorld Score</span>
                         </th>
                     </tr>
                 </thead>

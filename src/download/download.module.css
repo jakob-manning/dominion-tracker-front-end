@@ -1,0 +1,10 @@
+.download{
+    margin: auto;
+    text-align: center;
+    max-width: 500px;
+    padding: 10px;
+}
+
+.download ol {
+    text-align: left;
+}
