@@ -8,8 +8,8 @@ interface Props {
 }
 
 const convertSecondsToNiceString = (seconds: number) => {
-    var days    = Math.floor(seconds / (3600*24))
-    var hours   = Math.floor(seconds / 3600)
+    var days = Math.floor(seconds / (3600*24))
+    var hours = Math.floor(seconds / 3600)
     var minutes = Math.floor(seconds / 60) % 60
     seconds = Math.round(seconds % 60)
 
@@ -85,7 +85,7 @@ const Players: React.FC<Props> = (props) => {
         return playerWins
     }
 
-    const calculatePlayerPlayerTimeInMs = (playerName: DominionPlayerFullName): number => {
+    const calculatePlayerPlayTimeInMs = (playerName: DominionPlayerFullName): number => {
         let playerPlayTimeInMs = 0;
 
         for(const player of players){
@@ -105,7 +105,7 @@ const Players: React.FC<Props> = (props) => {
             <h1>Player Profiles</h1>
             <div className={classes.cardContainer}>
                 {playerNames.map( player => {
-                    const playerPlayerTimeInSeconds = calculatePlayerPlayerTimeInMs(player) / 1000;
+                    const playerPlayerTimeInSeconds = calculatePlayerPlayTimeInMs(player) / 1000;
                     const noOfGames = calculatePlayerGames(player);
                     return (
                             <PlayerCard>
