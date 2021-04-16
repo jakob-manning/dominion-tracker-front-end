@@ -7,6 +7,19 @@ interface Props {
     data: object
 }
 
+const convertSecondsToNiceString = (seconds: number) => {
+    var days    = Math.floor(seconds / (3600*24))
+    var hours   = Math.floor(seconds / 3600)
+    var minutes = Math.floor(seconds / 60) % 60
+    seconds = Math.round(seconds % 60)
+
+    let str = days ? days + "d " : "";
+    str += hours ? hours + "hr " : "";
+    str += minutes ? minutes + "m " : "";
+    str += seconds && !(days || hours) ? seconds + "s" : ""; // if there are days or hours we dont need to show seconds
+    return str;
+}
+
 const Players: React.FC<Props> = (props) => {
     let players: DominionPlayerResults[] = []
     let playerNames: DominionPlayerFullName[] = []
@@ -19,9 +32,7 @@ const Players: React.FC<Props> = (props) => {
         }
         //find all unique names
         let playerNameSet = new Set(players.map(player => player.fullName))
-        //TODO: learn to love typescript enough to deal with the below
-        // @ts-ignore
-        playerNames = [...playerNameSet]
+        playerNames = Array.from(playerNameSet);
     }
 
 
@@ -74,18 +85,36 @@ const Players: React.FC<Props> = (props) => {
         return playerWins
     }
 
+    const calculatePlayerPlayerTimeInMs = (playerName: DominionPlayerFullName): number => {
+        let playerPlayTimeInMs = 0;
+
+        for(const player of players){
+            if(player.fullName === playerName) {
+                if(player.gameDuration && player.gameDuration < (3*60*60*1000)){ // don't include anything over 3 hours, the game duration collection isn't perfect
+                    playerPlayTimeInMs += player.gameDuration;
+                }
+            }
+        }
+
+        console.log(playerPlayTimeInMs);
+        return playerPlayTimeInMs;
+    }
+
     return (
         <div className={classes.Players}>
             <h1>Player Profiles</h1>
             <div className={classes.cardContainer}>
                 {playerNames.map( player => {
-                    console.log(player);
+                    const playerPlayerTimeInSeconds = calculatePlayerPlayerTimeInMs(player) / 1000;
+                    const noOfGames = calculatePlayerGames(player);
                     return (
                             <PlayerCard>
                                 <h3>{player}</h3>
                                 <p>Wins: {calculatePlayerWins(player)}</p>
                                 <p>Points: {calculatePlayerPoints(player)}</p>
-                                <p>Games: {calculatePlayerGames(player)}</p>
+                                <p>Games: {noOfGames}</p>
+                                {playerPlayerTimeInSeconds !== 0 && <p>Play Time: {convertSecondsToNiceString(playerPlayerTimeInSeconds)}</p>}
+                                {playerPlayerTimeInSeconds !== 0 && <p>Avg Game Time: {convertSecondsToNiceString((playerPlayerTimeInSeconds) / noOfGames)}</p>}
                             </PlayerCard>
                     )
                 })}

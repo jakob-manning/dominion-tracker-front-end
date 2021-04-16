@@ -14,6 +14,7 @@ export interface DominionPlayerResults {
     turns?: number;
     date?: ISO_String;
     gameNumber: string;
+    gameDuration?: number; // in milliseconds -- lol
 }
 
 export interface DominionPlayerResultsSafe {
